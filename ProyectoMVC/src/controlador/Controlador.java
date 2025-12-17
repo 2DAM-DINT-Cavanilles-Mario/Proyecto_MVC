@@ -2,6 +2,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import modelo.Modelo;
 import vista.Vista;
 
@@ -14,7 +15,6 @@ public class Controlador implements ActionListener {
         this.view = view;
         this.model = model;
 
-        // Escuchadores de botones
         this.view.btnSumar.addActionListener(this);
         this.view.btnRestar.addActionListener(this);
         this.view.btnMultiplicar.addActionListener(this);
@@ -29,11 +29,22 @@ public class Controlador implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        // Obtener valores de la vista
+        // ERROR: campos vacíos
+        if (view.txtNumeroUno.getText().isEmpty() || view.txtNumeroDos.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                view,
+                "Debes introducir números en ambos campos",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        // Pasar datos al modelo
         model.setNumeroUno(Integer.parseInt(view.txtNumeroUno.getText()));
         model.setNumeroDos(Integer.parseInt(view.txtNumeroDos.getText()));
 
-        // Detectar botón pulsado
+        // Operaciones
         if (e.getSource() == view.btnSumar) {
             model.sumar();
         } 
@@ -44,7 +55,19 @@ public class Controlador implements ActionListener {
             model.multiplicar();
         } 
         else if (e.getSource() == view.btnDividir) {
-            model.dividir(); // si es 0, no hace nada
+
+            // ERROR: dividir entre cero
+            if (model.getNumeroDos() == 0) {
+                JOptionPane.showMessageDialog(
+                    view,
+                    "No se puede dividir entre 0",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            model.dividir();
         }
 
         // Mostrar resultado
