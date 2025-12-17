@@ -1,14 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
-/**
- *
- * @author martorarm
- */
 public class Modelo {
+
     private int numeroUno;
     private int numeroDos;
     private int resultado;
@@ -33,12 +26,29 @@ public class Modelo {
         return resultado;
     }
 
-    public void setResultado(int resultado) {
-        this.resultado = resultado;
+    // SUMAR
+    public int sumar() {
+        resultado = numeroUno + numeroDos;
+        return resultado;
     }
-    
+
+    // RESTAR
+    public int restar() {
+        resultado = numeroUno - numeroDos;
+        return resultado;
+    }
+
+    // MULTIPLICAR
     public int multiplicar() {
-        this.resultado = this.numeroUno * numeroDos;
-        return this.resultado;
+        resultado = numeroUno * numeroDos;
+        return resultado;
+    }
+
+    // DIVIDIR (NO divide entre 0)
+    public int dividir() {
+        if (numeroDos != 0) {
+            resultado = numeroUno / numeroDos;
+        }
+        return resultado;
     }
 }
